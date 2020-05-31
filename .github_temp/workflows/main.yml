@@ -1,0 +1,23 @@
+name: Deploy Post
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: awsacdev/netlifycustom:2.0
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}    
+    steps:
+        - uses: actions/checkout@master
+        - name: Build and Deploy
+          run: |
+            cd webtest
+            npm i
+            gatsby build
+            netlify deploy --dir=public --prod

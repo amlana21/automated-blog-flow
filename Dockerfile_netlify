@@ -1,0 +1,6 @@
+FROM node:14.3
+RUN npm install netlify-cli -g
+RUN npm install gatsby-cli -g
+RUN mkdir /deployfiles
+WORKDIR /deployfiles
+CMD ["bash"]
